@@ -1,0 +1,67 @@
+name: employee_app
+description: technical test
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.1.2 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  auto_route: ^7.7.1
+  injectable: ^2.1.0
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.7.0
+  get_it: ^7.2.0
+  flutter_bloc: ^8.1.1
+  intl: ^0.18.0
+  auto_size_text: ^3.0.0
+  reactive_forms: ^16.0.2
+  slang: ^3.3.1
+  logger: ^1.1.0
+  json_theme: ^5.0.2+4
+  dynamic_color: ^1.5.4
+  flutter_svg: ^2.0.9
+  flutter_sizer: ^1.0.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  fluttertoast: ^8.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  auto_route_generator: ^7.2.0
+  injectable_generator: ^2.1.4
+  build_runner: ^2.4.4
+  freezed: ^2.2.0
+  json_serializable: ^6.5.4
+  slang_flutter: ^3.3.0
+  slang_build_runner: ^3.3.0
+  r_resources: ^1.0.1
+  hive_generator: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/svg/
+    - assets/configs/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto/Roboto-Light.ttf
+          weight: 300

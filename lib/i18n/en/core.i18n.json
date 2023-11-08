@@ -1,0 +1,11 @@
+{
+  "appBar": {
+    "employee_list": "Employee List",
+    "add_employee": "Add Employee Details",
+    "edit_employee": "Edit Employee Details"
+  },
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

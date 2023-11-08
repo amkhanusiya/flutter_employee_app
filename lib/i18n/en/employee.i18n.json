@@ -1,0 +1,18 @@
+{
+  "form": {
+    "emp_name": "Employee name",
+    "select_role": "Select Role",
+    "no_date": "No Date"
+  },
+  "calendar": {
+    "today": "Today",
+    "next_monday": "Next Monday",
+    "next_tuesday": "Next Tuesday",
+    "after_week": "After 1 Week",
+    "no_date": "No date"
+  },
+  "result": {
+    "create_success": "Emplyee created successfully.",
+    "update_success": "Emplyee updated successfully."
+  }
+}
