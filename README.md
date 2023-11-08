@@ -5,7 +5,7 @@ technical test
 ## Getting Started
 
 ### :hammer: Build
-To clone and run this boilerplate, you'll need [Git](https://git-scm.com) and [Flutter](https://docs.flutter.dev/get-started/install) installed on your computer. From your command line:
+To clone and run this code, you'll need [Git](https://git-scm.com) and [Flutter](https://docs.flutter.dev/get-started/install) installed on your computer. From your command line:
 
 # Clone this repository
 $ git clone https://github.com/amkhanusiya/flutter_employee_app.git
