@@ -8,13 +8,12 @@ part 'employee.g.dart';
 @HiveType(typeId: 0)
 @freezed
 abstract class Employee with _$Employee {
-  @HiveField(0)
   factory Employee({
-    @HiveField(1) required int id, // Primary key
-    @HiveField(2) required String name,
-    @HiveField(3) required String role,
-    @HiveField(4) required String fromDate,
-    @HiveField(5) required String toDate,
+    @HiveField(0) required String id, // Primary key
+    @HiveField(1) required String name,
+    @HiveField(2) required String role,
+    @HiveField(3) required String fromDate,
+    @HiveField(4) required String toDate,
   }) = _Employee;
 }
 

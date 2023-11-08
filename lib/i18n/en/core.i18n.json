@@ -6,6 +6,10 @@
   },
   "buttons": {
     "save": "Save",
-    "cancel": "Cancel"
-  }
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "delete": "Delete",
+  "delete_conformation": "Are you sure want to delete?"
 }

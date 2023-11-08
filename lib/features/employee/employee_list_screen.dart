@@ -9,11 +9,14 @@ import 'package:employee_app/utils/r.dart';
 import 'package:employee_app/utils/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 
 @RoutePage()
 class EmployeeList extends StatelessWidget {
-  const EmployeeList({super.key});
+  EmployeeList({super.key});
+
+  final EmployeeCubit employeeCubit = getIt<EmployeeCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,15 @@ class EmployeeList extends StatelessWidget {
           color: $constants.palette.white,
         ),
       ),
-      body: BlocBuilder<EmployeeCubit, EmployeeState>(
-        bloc: getIt<EmployeeCubit>(),
+      body: BlocConsumer<EmployeeCubit, EmployeeState>(
+        listener: (context, state) {
+          state.maybeWhen(
+            orElse: () => logIt.info("emp list orElse"),
+            deleted: () =>
+                toast.showToast(context.t.employee.result.delete_success),
+          );
+        },
+        bloc: employeeCubit,
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () => const SizedBox.shrink(),
@@ -42,7 +52,6 @@ class EmployeeList extends StatelessWidget {
                     children: [
                       if (current.isNotEmpty)
                         _renderEmployees(context, "Current employees", current),
-
                       if (previous.isNotEmpty)
                         _renderEmployees(
                             context, "Previous employees", previous)
@@ -91,37 +100,80 @@ class EmployeeList extends StatelessWidget {
             itemBuilder: (context, index) {
               Employee employee = employees[index];
               TextTheme textTheme = Theme.of(context).textTheme;
-              return InkWell(
-                onTap: () => context.router.push(AddUpdateEmployeeRoute(employee: employee)),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        employee.name,
-                        style: textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
+              return Slidable(
+                endActionPane: ActionPane(
+                  extentRatio: 0.25,
+                  motion: const ScrollMotion(),
+                  children: [
+                    SlidableAction(
+                      onPressed: (context) =>
+                          _deleteEmployee(context, employee),
+                      backgroundColor: $constants.palette.red,
+                      foregroundColor: $constants.palette.white,
+                      icon: Icons.delete,
+                      label: 'Delete',
+                    ),
+                  ],
+                ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: InkWell(
+                    onTap: () => context.router
+                        .push(AddUpdateEmployeeRoute(employee: employee)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            employee.name,
+                            style: textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            employee.getActualRole(employee.role),
+                            style: textTheme.bodySmall,
+                          ),
+                          Text(
+                            employee.toDate.isNotEmpty
+                                ? '${employee.fromDate} - ${employee.toDate}'
+                                : 'From ${employee.fromDate}',
+                            style: textTheme.bodySmall,
+                          )
+                        ],
                       ),
-                      Text(
-                        employee.getActualRole(employee.role),
-                        style: textTheme.bodySmall,
-                      ),
-                      Text(
-                        employee.toDate.isNotEmpty
-                            ? '${employee.fromDate} - ${employee.toDate}'
-                            : 'From ${employee.fromDate}',
-                        style: textTheme.bodySmall,
-                      )
-                    ],
+                    ),
                   ),
                 ),
               );
             },
+          ),
+        ],
+      ),
+    );
+  }
+
+  _deleteEmployee(BuildContext context, Employee employee) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(ctx.t.core.delete),
+        content: Text(ctx.t.core.delete_conformation),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(ctx.t.core.buttons.no),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              employeeCubit.deleteEmployee(employee);
+            },
+            child: Text(ctx.t.core.buttons.yes),
           ),
         ],
       ),

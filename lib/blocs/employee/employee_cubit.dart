@@ -5,20 +5,22 @@ import 'package:employee_app/utils/methods/aliases.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:uuid/uuid.dart';
 
 part 'employee_cubit.freezed.dart';
-
 part 'employee_state.dart';
 
 @lazySingleton
 class EmployeeCubit extends Cubit<EmployeeState> {
   final EmployeeDatabase employeeDatabase = getIt<EmployeeDatabase>();
+  final Uuid uuid = const Uuid();
 
   EmployeeCubit() : super(const EmployeeInitialState()) {
+    employeeDatabase.initialize();
     fetchEmployees();
   }
 
-  Future<void> updateEmployee(Employee employee)async {
+  Future<void> updateEmployee(Employee employee) async {
     await employeeDatabase.updateEmployee(employee);
     fetchEmployees();
     emit(const EmployeeUpdatedState());
@@ -32,7 +34,7 @@ class EmployeeCubit extends Cubit<EmployeeState> {
   ) async {
     await employeeDatabase.addEmployee(
       Employee(
-        id: 0,
+        id: uuid.v4(),
         name: name,
         role: role,
         fromDate: startDate,
@@ -59,5 +61,11 @@ class EmployeeCubit extends Cubit<EmployeeState> {
         .toList();
     logIt.info(allEmployees);
     emit(EmployeeFetchedState(currentEmployees, previousEmployees));
+  }
+
+  Future<void> deleteEmployee(Employee employee) async {
+    await employeeDatabase.deleteEmployee(employee);
+    fetchEmployees();
+    emit(const EmployeeDeletedState());
   }
 }

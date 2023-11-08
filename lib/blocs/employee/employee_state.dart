@@ -8,6 +8,8 @@ class EmployeeState with _$EmployeeState {
 
   const factory EmployeeState.updated() = EmployeeUpdatedState;
 
+  const factory EmployeeState.deleted() = EmployeeDeletedState;
+
   const factory EmployeeState.fetched(
     List<Employee> current,
     List<Employee> previous,

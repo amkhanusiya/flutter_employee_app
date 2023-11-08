@@ -20,7 +20,7 @@ class _AppWrapperState extends State<AppWrapper> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
     Future.delayed(const Duration(milliseconds: 250), () {
-      context.router.replace(const EmployeeListRoute());
+      context.router.replace(EmployeeListRoute());
     });
   }
 
