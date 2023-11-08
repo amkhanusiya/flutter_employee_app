@@ -8,10 +8,10 @@ technical test
 To clone and run this boilerplate, you'll need [Git](https://git-scm.com) and [Flutter](https://docs.flutter.dev/get-started/install) installed on your computer. From your command line:
 
 # Clone this repository
-$ git clone <repo_link>
+$ git clone https://github.com/amkhanusiya/flutter_employee_app.git
 
 # Go into the repository
-$ cd <project_name>
+$ cd flutter_employee_app
 
 # Install dependencies
 $ flutter pub get
