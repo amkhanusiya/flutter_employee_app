@@ -21,5 +21,9 @@ jobs:
           cache: true
       - name: Get dependencies
         run: flutter pub get
+      - name: Generate translation strings
+        run: flutter pub run slang
+      - name: Generate required classes
+        run: flutter packages pub run build_runner build -d
       - name: Start release build
         run: flutter build appbundle
